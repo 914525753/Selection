@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8" />
+		<script type = "text/javascript" src = "http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script> <!--jquery-->
+		<script type = "text/javascript" async="async">
+			function Selection(id)
+			{
+				if($("input#count").val() < $("input#range").val())
+				{
+					alert("抽取的次数不应该大于抽取的范围！");
+					return false;
+				}
+				switch(id)
+				{
+					case "count":
+						return $("input#count").val();
+						break;
+					case "range":
+						return $("input#range").val();
+						break;					
+				}
+			}
+			function Check()
+			{
+				if(Selection("range") == false || Selection("count") == false)
+				{
+					return false;
+				}
+				if(Selection("range") == 1)
+				{
+					$("span#result").html("结果：1");
+					return false;
+				}
+				return true;
+			}
+			function Result()
+			{
+				if(Check() == false) return false;
+				var ary = [],result = "";
+				var i = 0;
+				for(i; i <= Selection("range") - 1; i++)
+				{
+					ary[i] = i + 1;
+					ary.sort(
+						function()
+						{
+							return 0.5 - Math.random();
+						}
+					);
+				}
+				for(i = 0; i <= Selection("count") - 1; i++)
+				{
+					result = result + ary[i] + " ";
+				}
+				$("span#result").html("结果：" + result.trim());
+			}	
+		</script>
+		<style type="text/css">
+			button,input
+			{
+				background-color: transparent;
+				border-style: none;
+				cursor: auto;	
+				border: 0;
+				background: none;
+				margin: 2px auto;
+				text-align: center;
+				border: 2px solid #1E90FF;
+				padding: 4px 11px;
+				outline: none;
+				color: black;
+				border-radius: 24px;
+				transition: 0.25s;
+			}
+			p
+			{
+				margin:20px;
+				line-height : 200%; 
+			}
+			div
+			{
+				text-align: center;
+				border: 2px solid #1E90FF;
+				width: 600px;
+				margin: 2px auto;
+				padding-bottom: 10px;
+			}
+			span
+			{
+				display: block;
+				padding: 5px;
+			}
+			h1
+			{
+				text-transform: uppercase;
+				font-weight: 600;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<H1>随机抽取系统</H1>
+			<p>抽取的次数：<input id = "count" placeholder = "抽取的次数" onkeyup = "this.value=this.value.replace(/\D/g,'')" onafterpaste = "this.value=this.value.replace(/\D/g,'')"></input></p>
+			<p>抽取的范围：<input id = "range" placeholder = "抽取的范围" onkeyup = "this.value=this.value.replace(/\D/g,'')" onafterpaste = "this.value=this.value.replace(/\D/g,'')"></input></p>
+			<button onclick = "Result()" style="width: 100px;display: block;">抽取</button>		
+			<span id = "result"></span>	
+		</div>
+	</body>
+</html>
