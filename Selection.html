@@ -6,7 +6,7 @@
 		<script type = "text/javascript" async="async">
 			function Selection(id)
 			{
-				if($("input#count").val() < $("input#range").val())
+				if($("input#count").val() > $("input#range").val())
 				{
 					alert("抽取的次数不应该大于抽取的范围！");
 					return false;
@@ -25,11 +25,12 @@
 			{
 				if(Selection("range") == false || Selection("count") == false)
 				{
+					$("span#result").text("错误！");
 					return false;
 				}
 				if(Selection("range") == 1)
 				{
-					$("span#result").html("结果：1");
+					$("span#result").text("结果：1");
 					return false;
 				}
 				return true;
